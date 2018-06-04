@@ -1,0 +1,30 @@
+version: '2.1'
+
+services:
+  localstack:
+    image: localstack/localstack
+    ports:
+      - "4576:4576"
+      - "${PORT_WEB_UI-8080}:${PORT_WEB_UI-8080}"
+    environment:
+      - "SERVICES=sqs"
+      - "DEFAULT_REGION=eu-west-1"
+      - "HOSTNAME=${LOCALSTACK_HOSTNAME:-localhost}"
+      - "HOSTNAME_EXTERNAL=${LOCALSTACK_HOSTNAME_EXTERNAL:-localhost}"
+    healthcheck:
+      test: "curl localhost:8080"
+      interval: 30s
+      timeout: 30s
+      retries: 3
+
+  create_localstack_resources:
+    image: localstack-sidecar
+    environment:
+      - LISTENING_PORT=4576
+      - LISTENING_HOST=localstack
+    depends_on:
+      - localstack
+    links:
+      - "localstack"
+    volumes:
+      - "./init:/opt/init"
