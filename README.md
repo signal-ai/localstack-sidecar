@@ -42,7 +42,7 @@ Below the docker-compose used in the example.
           - "HOSTNAME_EXTERNAL=${LOCALSTACK_HOSTNAME_EXTERNAL:-localhost}"
 
     create_localstack_resources:
-        image: localstack-sidecar
+        image: quay.io/signal/localstack-sidecar:0.1
         environment:
           - LISTENING_PORT=4576
           - LISTENING_HOST=localstack
