@@ -20,7 +20,8 @@ services:
   create_localstack_resources:
     image: quay.io/signal/localstack-sidecar:0.1
     environment:
-      - LISTENING_PORT=4576
+      #if localstack uses proxy mode (enabled by default) the internal service port should be specified.
+      - LISTENING_PORT=4561 
       - LISTENING_HOST=localstack
     depends_on:
       - localstack
