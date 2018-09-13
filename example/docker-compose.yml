@@ -11,11 +11,6 @@ services:
       - "DEFAULT_REGION=eu-west-1"
       - "HOSTNAME=${LOCALSTACK_HOSTNAME:-localhost}"
       - "HOSTNAME_EXTERNAL=${LOCALSTACK_HOSTNAME_EXTERNAL:-localhost}"
-    healthcheck:
-      test: "curl localhost:8080"
-      interval: 30s
-      timeout: 30s
-      retries: 3
 
   create_localstack_resources:
     image: quay.io/signal/localstack-sidecar:0.1
